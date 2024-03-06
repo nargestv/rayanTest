@@ -1,0 +1,127 @@
+server:
+  port: 8081
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: demo-service
+  config:
+    import: classpath:messages.yml
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.security.web.FilterChainProxy: OFF
+    org.springframework.security.web.authentication.AnonymousAuthenticationFilter: OFF
+    ir.hampa.credit.core: DEBUG
+  pattern:
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%level] [%thread] [%logger:%line] %msg%n'
+  logback:
+    rollingpolicy:
+      max-file-size: 300MB
+      max-history: 180
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/demo
+    username: admin_user
+    password: 123456
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: fardabank.com
+          public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsvDNh0xo7fHSkuDDflgBq58WFN8WxUdHmDAHe5yL9WwNTUW4550Wa5aQ6dnijWK64vSLG7Vb8+e0uKdz/ZC9U5GWsBbOFiidlxk38FNWS6d1+SfzZOBx1AVRw4jyIhvCFwLJc9qXZ2gTXYS0WvaF4J8KjU7WUPc1sFhscYF9M5gkVY2OQ4OSfQMbBzPnDbu6LpSjX2b/K37BiEWOm4Z/3c9M1J8SoWprqj/2DYTo9YImfPsDDGS2axskOrLrFrVTUsGXOx95pB7ZXJs+Vdga3xPMEd6xj4i8a6IFgOj+HE1GXLQXgKf42wGmskpO9uSY6vb6N2sghOUGzmd7V+P+kwIDAQAB
+file:
+  max-size: 10000000
+
+logging:
+  file:
+    name: logs/${spring.application.name}.log
+  logback:
+    rollingpolicy:
+      file-name-pattern: logs/${spring.application.name}.%d{yyyy-MM-dd}.%i.log
+
+jwt:
+  issuer : rayan
+  jwtTokenValidity: 1800 # 12 * 60 * 60 seconds
+  jwtRefreshTokenValidity: 21600 # 6 * 60 * 60 seconds
+  token-prefix: 'Bearer '
+  private-key: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCy8M2HTGjt8dKS4MN+WAGrnxYU3xbFR0eYMAd7nIv1bA1NRbjnnRZrlpDp2eKNYrri9IsbtVvz57S4p3P9kL1TkZawFs4WKJ2XGTfwU1ZLp3X5J/Nk4HHUBVHDiPIiG8IXAslz2pdnaBNdhLRa9oXgnwqNTtZQ9zWwWGxxgX0zmCRVjY5Dg5J9AxsHM+cNu7oulKNfZv8rfsGIRY6bhn/dz0zUnxKhamuqP/YNhOj1giZ8+wMMZLZrGyQ6susWtVNSwZc7H3mkHtlcmz5V2BrfE8wR3rGPiLxrogWA6P4cTUZctBeAp/jbAaaySk725Jjq9vo3ayCE5QbOZ3tX4/6TAgMBAAECggEANgSLhvSCGJKPxtcjLNjUaEK2H8bY0OUbr82P9LjlZ0kfGtyZXRIG2qOxS2cDBTtwv2KjO9Ib2B1yaOvkD//Jp5ijrLS1serA6AQs5tfBjUUYUAbHawR2WFLiw+xra/CFPv0QY3Dxk73PWsPczjjtYUmhndbWy8pU4s9OrVUxvokFn2bQlWy/wujxJwl7fvagqXBml3dghesiZ5X5FeFBS4gTPZISIh/IPRaNhUR0gQH8CfsCEOw/mN/zb2jJ/ici3Uf1On1OXlleALHWAH3nNxj0pbiqFltLliWEvEysW+Lbkyv6zRiZpd5iU+WJO0WVZXQ1KXRgq7nDE69R16pUQQKBgQDmFI+gcVEnbXRwsfp/uo5Rd/OUAmhAY1thXNnUAep0jIywLzyMzLvUzeTrYZqLyFYgfJyRXR/1bJQ6+6R7U/9dRale7wERf/KOygySetRWCOpJMZCfamX6YiSJYrhLlbSYMHnPByrCSFQageYDQsR7LQ+OQEC1Hi6QGM79byMxDwKBgQDHGWP/d8G5OKUTgejv9oBU8MrhgaqwUwMS6PUWrmLptzUrooVphB7FsP9KfiKNI1t5D+ixFx5yDBf80cpNt4Qn48Eg+WAGrv5644KuGlE0QsAU2orxIq9p7LKn4eytcjan4jfTLLz/G2y+KKEzks7YjW/TGYOFYgXgpCxzd43SPQKBgQC/vIzAwQ5HVDDAJaHCxd4KSHMleigU2HfzmGQzCHGxNNudi4/jKk6xle/atFkNeiNEKXR0s22JojWZPdIhsKtTuFTgNz7lrYGeuwRlIZVIKV/NJVAHeayITzdxgmJhIt4AIg2wmKFqjMoB2RSszPxeRfv7qNID3aYiEXqVuwNRwwKBgAeEE9xO/wco9kJYQxzb51hNhrsgk/r4B0Ote6MRjjZYbi9pgTPMgwTfe6OqQ0+kqA1X5mbZApM3lag7mzF33gtLc7z07QUTkhO9hu9fmvUoF+wxm9EiiBCtmMjxpGefyiRoS8czBydyN5auHfe+cQSHwlLrwaVFYAds6yiouLfZAoGBAOMGgTSA90tvCC632DD5zflOVn22sqdZpKhO3rqfyFzXTqZ83KzO/NoI0KvWKq+V0WH0Vp3B+KHtdDTEFtWaHvPME5IfBPDYznv2x2fwJEtb8drmzmWGyvzVBZJ15qdQCcR5I8FaF6/YzMktzuY05WmZRlL+tbuhA321cYrJN2gP
+user:
+  max_try_charge : 10000000
+  min_try_charge: 5
+  time_limit : 15
+sms:
+  is-not-required-otp: true
+  send: false
+job:
+  update-currency-cache: '* */30 * * * *'
+reset:
+  token-validity: 5
+---
+#test
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:h2:mem:test
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+  minio:
+    url: http://localhost:9000
+    pass-bucket: passports
+    folder: passFolder
+    access-key: RUXHLaQL6rGMAERs
+    secret-key: I3QIW65mblFGM5gHn18tdD4bub0Ffqff
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          secret: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2l4gLCaxUHhbAuIK3U/ucrl7l3CfLgv+Acle+f7YhEiIX/wwac1JgWnQsbSKJwroBggilu4E7Nx7mb/2H2SX6RLB5IhihuZbDmjvGb9mzsDbaLxQei6xp+WyUGp1QlMo82/hJW2xtvWvNxN5vDeQ40gCBU1f2fAuKoPdtjobF1Oh2PGJb4zXtAMjA7zoUFQ0DfTbRl4+QvWfUpgJRDAEmtFxTAvffmwArte2dS3Hg+v2F707q7mVCB1KtRi0+0dr6TVTewMT62XTYtq2Q3PzZUAmuyyfud1ULk87lC9XlbYzvGCeSZLGHlLpojBqRB8RmxHgOMSvVzrtm+4OS/kdrwIDAQAB
+          issuer-uri: rayan.com
+          public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsvDNh0xo7fHSkuDDflgBq58WFN8WxUdHmDAHe5yL9WwNTUW4550Wa5aQ6dnijWK64vSLG7Vb8+e0uKdz/ZC9U5GWsBbOFiidlxk38FNWS6d1+SfzZOBx1AVRw4jyIhvCFwLJc9qXZ2gTXYS0WvaF4J8KjU7WUPc1sFhscYF9M5gkVY2OQ4OSfQMbBzPnDbu6LpSjX2b/K37BiEWOm4Z/3c9M1J8SoWprqj/2DYTo9YImfPsDDGS2axskOrLrFrVTUsGXOx95pB7ZXJs+Vdga3xPMEd6xj4i8a6IFgOj+HE1GXLQXgKf42wGmskpO9uSY6vb6N2sghOUGzmd7V+P+kwIDAQAB
+          nilin-issuer: nillin
+
+  cache:
+    type: none
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+file:
+  max-size: 10000000
+
+logging:
+  file:
+    name: logs/${spring.application.name}.log
+  logback:
+    rollingpolicy:
+      file-name-pattern: logs/${spring.application.name}.%d{yyyy-MM-dd}.%i.log
+
+jwt:
+  secret: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2l4gLCaxUHhbAuIK3U/ucrl7l3CfLgv+Acle+f7YhEiIX/wwac1JgWnQsbSKJwroBggilu4E7Nx7mb/2H2SX6RLB5IhihuZbDmjvGb9mzsDbaLxQei6xp+WyUGp1QlMo82/hJW2xtvWvNxN5vDeQ40gCBU1f2fAuKoPdtjobF1Oh2PGJb4zXtAMjA7zoUFQ0DfTbRl4+QvWfUpgJRDAEmtFxTAvffmwArte2dS3Hg+v2F707q7mVCB1KtRi0+0dr6TVTewMT62XTYtq2Q3PzZUAmuyyfud1ULk87lC9XlbYzvGCeSZLGHlLpojBqRB8RmxHgOMSvVzrtm+4OS/kdrwIDAQAB
+  issuer: rayan
+  token-prefix: 'Bearer '
+  private-key: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCy8M2HTGjt8dKS4MN+WAGrnxYU3xbFR0eYMAd7nIv1bA1NRbjnnRZrlpDp2eKNYrri9IsbtVvz57S4p3P9kL1TkZawFs4WKJ2XGTfwU1ZLp3X5J/Nk4HHUBVHDiPIiG8IXAslz2pdnaBNdhLRa9oXgnwqNTtZQ9zWwWGxxgX0zmCRVjY5Dg5J9AxsHM+cNu7oulKNfZv8rfsGIRY6bhn/dz0zUnxKhamuqP/YNhOj1giZ8+wMMZLZrGyQ6susWtVNSwZc7H3mkHtlcmz5V2BrfE8wR3rGPiLxrogWA6P4cTUZctBeAp/jbAaaySk725Jjq9vo3ayCE5QbOZ3tX4/6TAgMBAAECggEANgSLhvSCGJKPxtcjLNjUaEK2H8bY0OUbr82P9LjlZ0kfGtyZXRIG2qOxS2cDBTtwv2KjO9Ib2B1yaOvkD//Jp5ijrLS1serA6AQs5tfBjUUYUAbHawR2WFLiw+xra/CFPv0QY3Dxk73PWsPczjjtYUmhndbWy8pU4s9OrVUxvokFn2bQlWy/wujxJwl7fvagqXBml3dghesiZ5X5FeFBS4gTPZISIh/IPRaNhUR0gQH8CfsCEOw/mN/zb2jJ/ici3Uf1On1OXlleALHWAH3nNxj0pbiqFltLliWEvEysW+Lbkyv6zRiZpd5iU+WJO0WVZXQ1KXRgq7nDE69R16pUQQKBgQDmFI+gcVEnbXRwsfp/uo5Rd/OUAmhAY1thXNnUAep0jIywLzyMzLvUzeTrYZqLyFYgfJyRXR/1bJQ6+6R7U/9dRale7wERf/KOygySetRWCOpJMZCfamX6YiSJYrhLlbSYMHnPByrCSFQageYDQsR7LQ+OQEC1Hi6QGM79byMxDwKBgQDHGWP/d8G5OKUTgejv9oBU8MrhgaqwUwMS6PUWrmLptzUrooVphB7FsP9KfiKNI1t5D+ixFx5yDBf80cpNt4Qn48Eg+WAGrv5644KuGlE0QsAU2orxIq9p7LKn4eytcjan4jfTLLz/G2y+KKEzks7YjW/TGYOFYgXgpCxzd43SPQKBgQC/vIzAwQ5HVDDAJaHCxd4KSHMleigU2HfzmGQzCHGxNNudi4/jKk6xle/atFkNeiNEKXR0s22JojWZPdIhsKtTuFTgNz7lrYGeuwRlIZVIKV/NJVAHeayITzdxgmJhIt4AIg2wmKFqjMoB2RSszPxeRfv7qNID3aYiEXqVuwNRwwKBgAeEE9xO/wco9kJYQxzb51hNhrsgk/r4B0Ote6MRjjZYbi9pgTPMgwTfe6OqQ0+kqA1X5mbZApM3lag7mzF33gtLc7z07QUTkhO9hu9fmvUoF+wxm9EiiBCtmMjxpGefyiRoS8czBydyN5auHfe+cQSHwlLrwaVFYAds6yiouLfZAoGBAOMGgTSA90tvCC632DD5zflOVn22sqdZpKhO3rqfyFzXTqZ83KzO/NoI0KvWKq+V0WH0Vp3B+KHtdDTEFtWaHvPME5IfBPDYznv2x2fwJEtb8drmzmWGyvzVBZJ15qdQCcR5I8FaF6/YzMktzuY05WmZRlL+tbuhA321cYrJN2gP
+  jwtTokenValidity: 1800 # 12 * 60 * 60 seconds
+  jwtRefreshTokenValidity: 21600 # 6 * 60 * 60 seconds
+job:
+  update-currency-cache: '* */30 * * * *'
+reset:
+  token-validity: 5
+---

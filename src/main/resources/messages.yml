@@ -1,0 +1,93 @@
+success:
+  code: 0
+  message: Success
+failed:
+  code: -1
+  message: Failed
+input-validation:
+  code: 400
+  message: Input params not valid
+internal-server-error:
+  code: 500
+  message: Internal Server Error
+empty-body:
+  code: 1001
+  message: response body is empty.
+repeated-mobile-number:
+  code: 1002
+  message: this mobile number already exists
+edit-opr-not-allowed:
+  code: 1003
+  message: edit operation is not allowed
+confirm-address-opr-not-allowed:
+  code: 1004
+  message: confirm address operation is not allowed
+payment-opr-not-allowed:
+  code: 1005
+  message: payment operation is not allowed
+user-already-has-payment:
+  code: 1006
+  message: user already has payment
+user-is-not-registered:
+  code: 1007
+  message: user is not registered
+nationalcode-mobile-mismatch:
+  code: 1008
+  message: nationalCode and mobile number was not match
+voucher-not-found:
+  code: 1009
+  message: voucher not found.
+wrong-otp:
+  code: 1010
+  message: otp is wrong.
+too-many-requests:
+  code: 1011
+  message: too many requests.
+order-not-found-or-expired:
+  code: 1012
+  message: pre order not found or expired.
+lira-charge-failed:
+  code: 1013
+  message: lira card charge failed.
+purchase-failed:
+  code: 4004
+  message: pin purchase failed.
+user-max-limit-payment-amount:
+  code: 1014
+  message: user max limit payment amount.
+min-try-charge-amount:
+  code: 1015
+  message: user min limit payment amount.
+user-already-registered:
+  code: 1016
+  message: user already registered.
+user-does-not-have-account-number:
+  code: 1017
+  message: user does not have account number.
+lira-card-failed:
+  code: 1018
+  message: lira card failed.
+repeated-opr:
+  code: 1019
+  message: repeated operation.
+user-has-no-card:
+  code: 1020
+  message: user has no card.
+lira-wallet-failed:
+  code: 1021
+  message: lira wallet failed.
+order-already-reversed:
+  code: 1022
+  message: order already reversed.
+no-payment-found-for-order:
+  code: 1023
+  message: No payment found for the order.
+kyc-status-already-exists:
+  code: 1024
+  message: The user has passed this step.
+entered-token-is-not-valid:
+  code: 1025
+  message: The entered token is not valid.
+operation-does-not-supported:
+  code: 1026
+  message: The entered operation does not supported.
