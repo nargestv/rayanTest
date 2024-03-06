@@ -26,7 +26,7 @@ public class UserController {
     private final MessageService messageService;
     private final JwtTokenUtil jwtTokenUtil;
 
-    @PostMapping("/user/add")
+    @PostMapping("/add")
     public GeneralResponse<List<User>> addUser(@RequestBody AddUserReqDto addUserReqDto) {
         return new GeneralResponse<>(messageService.getSUCCESS_CODE(), messageService.getSUCCESS_MESSAGE(),
                 userService.addUser(addUserReqDto));

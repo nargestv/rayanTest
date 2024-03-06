@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/user/login")
+@RequestMapping("/api/user")
 public class LoginController {
     private final MessageService messageService;
     private final LoginService loginService;
 
-    @PostMapping()
+    @PostMapping("login")
     public GeneralResponse<LoginResDto> loginByUsernameAndPassword(@Valid @RequestBody LoginReqDto loginReqDto) {
         LoginResDto loginResDto = loginService.userLogin(loginReqDto);
         return new GeneralResponse<>(messageService.getSUCCESS_CODE(), messageService.getSUCCESS_MESSAGE(), loginResDto);

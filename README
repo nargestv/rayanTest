@@ -1,0 +1,47 @@
+# User Token and Asynchronous Action Handling
+
+This project demonstrates a basic Spring Boot application that allows users to register, request tokens, and perform asynchronous actions.
+
+## Project Structure
+
+- `UserController`: Manages user-related endpoints such as registration and token generation.
+- `AsyncActionService`: Handles asynchronous actions for authorized users.
+- `TokenActionManager`: Manages the token-based synchronization of asynchronous actions.
+
+## Getting Started
+
+1. **Clone the Repository:**
+
+    ```bash
+    git clone <repository-url>
+    cd <repository-folder>
+    ```
+
+2. **Build and Run the Application:**
+
+    ```bash
+    ./mvnw spring-boot:run
+    ```
+
+3. **API Endpoints:**
+
+    - **Register User:**
+        - Endpoint: `POST /api/rayan/user/add`
+        - Request Body: JSON with `username` and `password`.
+
+    - **Request TokenPS:**
+        - Endpoint: `POST /api/user/login`
+        - Request Body: JSON with `username` and `password`.
+
+    - **Perform Asynchronous Action:**
+        - Endpoint: `POST /api/action/perform-async-action`
+        - Requires a valid user session and token.
+
+## Testing
+
+The project includes JUnit tests to validate the functionality of user registration, token requests, and asynchronous actions.
+
+To run the tests:
+
+```bash
+./mvnw test
